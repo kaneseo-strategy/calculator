@@ -60,6 +60,11 @@
             color: #888;
             font-weight: bold;
         }
+        result {
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -78,7 +83,7 @@
         <input type="number" id="investmentAmount" placeholder="Enter investment amount">
 
         <label for="buyingFeeSelect">Buying Fee</label>
-        <select id="buyingFeeSelect" style="width: 106.5%;" onchange="updateInputValue('buyingFee', this.value)">
+        <select id="buyingFeeSelect" style="width: 100%;" onchange="updateInputValue('buyingFee', this.value)">
             <option value="0.01">0.01%</option>
             <option value="0.05">0.05%</option>
             <option value="1">1%</option>
@@ -87,7 +92,7 @@
         <input type="number" id="buyingFee" placeholder="Enter or select fee" style="display:none;">
 
         <label for="sellingFeeSelect">Selling Fee</label>
-        <select id="sellingFeeSelect" style="width: 106.5%;" onchange="updateInputValue('sellingFee', this.value)">
+        <select id="sellingFeeSelect" style="width: 100%;" onchange="updateInputValue('sellingFee', this.value)">
             <option value="0.01">0.01%</option>
             <option value="0.05">0.05%</option>
             <option value="1">1%</option>
