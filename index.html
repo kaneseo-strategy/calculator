@@ -256,12 +256,12 @@
 
             content = document.getElementsByClassName("content");
             for (i = 0; i < content.length; i++) {
-            content[i].style.display = "none";
+                content[i].style.display = "none";
             }
 
             buttons = document.getElementsByClassName("tab-button");
             for (i = 0; i < buttons.length; i++) {
-             buttons[i].className = buttons[i].className.replace(" active", "");
+                buttons[i].className = buttons[i].className.replace(" active", "");
             }
 
             document.getElementById(tabName).style.display = "block";
@@ -277,12 +277,12 @@
     
             let profitLossDollar;
             if (positionType === "long") {
-                profitLossDollar = (exitPrice - entryPrice) * leverage * investment / entryPrice;
+                profitLossDollar = (exitPrice - entryPrice) * investment;
             } else { // short
-                profitLossDollar = (entryPrice - exitPrice) * leverage * investment / entryPrice;
+                profitLossDollar = (entryPrice - exitPrice) * investment;
             }
     
-            const profitLossPercent = (profitLossDollar / investment) * 100;
+            const profitLossPercent = (profitLossDollar / investment) * 100 * leverage;
     
             const resultElementDollar = document.getElementById('leverageResultDollar');
             const resultElementPercent = document.getElementById('leverageResultPercent');
@@ -291,11 +291,11 @@
             resultElementPercent.innerText = `Profit/Loss (%): ${profitLossPercent.toFixed(2)}`;
         
             if (profitLossDollar < 0) {
-                resultElementDollar.style.color = 'blue';
-                resultElementPercent.style.color = 'blue';
-            } else if (profitLossDollar > 0) {
                 resultElementDollar.style.color = 'red';
                 resultElementPercent.style.color = 'red';
+            } else if (profitLossDollar > 0) {
+                resultElementDollar.style.color = 'blue';
+                resultElementPercent.style.color = 'blue';
             } else {
                 resultElementDollar.style.color = '#FFFFFF';
                 resultElementPercent.style.color = '#FFFFFF';
