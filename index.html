@@ -122,13 +122,19 @@
     </header>
 
     <div class="tabs">
-    <button class="tab-button active" onclick="showTab('future')">Future Calculator</button>
-    <button class="tab-button" onclick="showTab('spot')">Spot Calculator</button>
+    <button class="tab-button active" onclick="showTab('future', event)">Future Calculator</button>
+    <button class="tab-button" onclick="showTab('spot', event)">Spot Calculator</button>
+
     </div>
 
     <div class="tab-content">
-    <div id="leverage" class="content active">
-    <h2>Leverage Calculator</h2>
+    <div id="leverage" class="content active"> 
+    <label for="positionType">Position Type:</label>
+    <select id="positionType">
+        <option value="long">Long</option>
+        <option value="short">Short</option>
+    </select>
+
     <label for="leverageAmount">Leverage (e.g., 10 for 10x):</label>
     <input type="number" id="leverageAmount" placeholder="Enter leverage">
 
@@ -245,7 +251,7 @@
             }
         }
 
-        function showTab(tabName) {
+        function showTab(tabName, event) {
             var i, content, buttons;
 
             content = document.getElementsByClassName("content");
@@ -263,14 +269,21 @@
         }
 
        function calculateLeverageProfitLoss() {
+            const positionType = document.getElementById('positionType').value;
             const leverage = parseFloat(document.getElementById('leverageAmount').value);
             const investment = parseFloat(document.getElementById('investmentLeverage').value);
             const entryPrice = parseFloat(document.getElementById('entryPrice').value);
             const exitPrice = parseFloat(document.getElementById('exitPrice').value);
-
-            const profitLossDollar = (exitPrice - entryPrice) * leverage * investment / entryPrice;
+    
+            let profitLossDollar;
+            if (positionType === "long") {
+                profitLossDollar = (exitPrice - entryPrice) * leverage * investment / entryPrice;
+            } else { // short
+                profitLossDollar = (entryPrice - exitPrice) * leverage * investment / entryPrice;
+            }
+    
             const profitLossPercent = (profitLossDollar / investment) * 100;
-
+    
             const resultElementDollar = document.getElementById('leverageResultDollar');
             const resultElementPercent = document.getElementById('leverageResultPercent');
             
