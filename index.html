@@ -122,8 +122,8 @@
     </header>
 
     <div class="tabs">
-    <button class="tab-button active" onclick="showTab('leverage')">Leverage Calculator</button>
-    <button class="tab-button" onclick="showTab('future')">Future Calculator</button>
+    <button class="tab-button active" onclick="showTab('future')">Future Calculator</button>
+    <button class="tab-button" onclick="showTab('spot')">Spot Calculator</button>
     </div>
 
     <div class="tab-content">
@@ -142,8 +142,10 @@
     <input type="number" id="exitPrice" placeholder="Enter exit price">
 
     <button onclick="calculateLeverageProfitLoss()">Calculate</button>
-    <p id="leverageResult" class="result"></p>
+    <p id="leverageResultDollar" class="result"></p>
+    <p id="leverageResultPercent" class="result"></p>
 </div>
+
 
     
     <div class="calculator">
@@ -260,25 +262,33 @@
             event.currentTarget.className += " active";
         }
 
-        function calculateLeverageProfitLoss() {
+       function calculateLeverageProfitLoss() {
             const leverage = parseFloat(document.getElementById('leverageAmount').value);
             const investment = parseFloat(document.getElementById('investmentLeverage').value);
             const entryPrice = parseFloat(document.getElementById('entryPrice').value);
             const exitPrice = parseFloat(document.getElementById('exitPrice').value);
 
-            const profitLoss = (exitPrice - entryPrice) * leverage * investment;
+            const profitLossDollar = (exitPrice - entryPrice) * leverage * investment / entryPrice;
+            const profitLossPercent = (profitLossDollar / investment) * 100;
 
-            const resultElement = document.getElementById('leverageResult');
-            resultElement.innerText = `Profit/Loss: $${profitLoss.toFixed(2)}`;
-
-            if (profitLoss < 0) {
-                resultElement.style.color = 'blue';
-            } else if (profitLoss > 0) {
-                resultElement.style.color = 'red';
+            const resultElementDollar = document.getElementById('leverageResultDollar');
+            const resultElementPercent = document.getElementById('leverageResultPercent');
+            
+            resultElementDollar.innerText = `Profit/Loss ($): ${profitLossDollar.toFixed(2)}`;
+            resultElementPercent.innerText = `Profit/Loss (%): ${profitLossPercent.toFixed(2)}`;
+        
+            if (profitLossDollar < 0) {
+                resultElementDollar.style.color = 'blue';
+                resultElementPercent.style.color = 'blue';
+            } else if (profitLossDollar > 0) {
+                resultElementDollar.style.color = 'red';
+                resultElementPercent.style.color = 'red';
             } else {
-                resultElement.style.color = '#FFFFFF';
+                resultElementDollar.style.color = '#FFFFFF';
+                resultElementPercent.style.color = '#FFFFFF';
             }
         }
+
     
 
         window.onload = function() {
