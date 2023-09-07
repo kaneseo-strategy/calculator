@@ -132,6 +132,15 @@
         Crypto PNL Calculator
     </header>
 
+    
+    <div style="text-align: right; padding-right: 50px;">
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="kr">한국어</option>
+        </select>
+    </div>
+
+
    <div class="tabs">
     <button class="tab-button" onclick="showTab('spot', event)">Spot Calculator</button>
     <button class="tab-button active" onclick="showTab('future', event)">Future Calculator</button>
@@ -314,6 +323,70 @@
             }
         }
 
+        // 언어별 텍스트 저장
+        const languages = {
+            en: {
+                header: "Crypto PNL Calculator",
+                spotTab: "Spot Calculator",
+                futureTab: "Future Calculator",
+                positionType: "Position Type:",
+                long: "Long",
+                short: "Short",
+                leverage: "Leverage (e.g., 10 for 10x):",
+                coinQuantity: "Coin Quantity:",
+                entryPrice: "Entry Price ($):",
+                exitPrice: "Exit Price ($):",
+                buyPrice: "Buy Price ($)",
+                sellPrice: "Sell Price ($)",
+                investmentAmount: "Investment Amount ($)",
+                buyingFee: "Buying Fee",
+                sellingFee: "Selling Fee",
+                calculate: "Calculate",
+                sharePNL: "Share My PNL"
+            },
+            kr: {
+                header: "크립토 PNL 계산기",
+                spotTab: "스팟 계산기",
+                futureTab: "퓨처 계산기",
+                positionType: "포지션 유형:",
+                long: "롱",
+                short: "숏",
+                leverage: "레버리지 (예: 10은 10x):",
+                coinQuantity: "코인 수량:",
+                entryPrice: "진입 가격 ($):",
+                exitPrice: "종료 가격 ($):",
+                buyPrice: "구매 가격 ($)",
+                sellPrice: "판매 가격 ($)",
+                investmentAmount: "투자 금액 ($)",
+                buyingFee: "구매 수수료",
+                sellingFee: "판매 수수료",
+                calculate: "계산하기",
+                sharePNL: "PNL 공유하기"
+            }
+        };
+
+        function changeLanguage() {
+            const selectedLanguage = document.getElementById('languageSelect').value;
+            const lang = languages[selectedLanguage];
+
+            document.querySelector('header').innerText = lang.header;
+            document.querySelector('.tab-button:nth-child(1)').innerText = lang.spotTab;
+            document.querySelector('.tab-button:nth-child(2)').innerText = lang.futureTab;
+            document.querySelector('label[for="positionType"]').innerText = lang.positionType;
+            document.querySelector('option[value="long"]').innerText = lang.long;
+            document.querySelector('option[value="short"]').innerText = lang.short;
+            document.querySelector('label[for="leverageAmount"]').innerText = lang.leverage;
+            document.querySelector('label[for="investmentLeverage"]').innerText = lang.coinQuantity;
+            document.querySelector('label[for="entryPrice"]').innerText = lang.entryPrice;
+            document.querySelector('label[for="exitPrice"]').innerText = lang.exitPrice;
+            document.querySelector('label[for="buyPrice"]').innerText = lang.buyPrice;
+            document.querySelector('label[for="sellPrice"]').innerText = lang.sellPrice;
+            document.querySelector('label[for="investmentAmount"]').innerText = lang.investmentAmount;
+            document.querySelector('label[for="buyingFeeSelect"]').innerText = lang.buyingFee;
+            document.querySelector('label[for="sellingFeeSelect"]').innerText = lang.sellingFee;
+            document.querySelectorAll('button[onclick="calculateProfitLoss()"]')[0].innerText = lang.calculate;
+            document.querySelectorAll('button[onclick="sharePNL()"]')[0].innerText = lang.sharePNL;
+        }
 
 
         window.onload = function() {
