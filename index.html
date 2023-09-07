@@ -94,17 +94,28 @@
             padding: 40px 50px;
             }
         }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
         .tab-button {
             padding: 10px 20px;
             cursor: pointer;
             background-color: #242424;
             color: white;
-            border: none;
-            border-bottom: 2px solid transparent;
+            border: 1px solid #EE7E19;
+            border-radius: 8px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
         }
 
+       .tab-button:hover {
+            background-color: #EE7E19;
+        }
+        
         .tab-button.active {
-            border-bottom: 2px solid #EE7E19;
+            background-color: #EE7E19;
         }
 
         .content {
@@ -121,12 +132,10 @@
         Crypto PNL Calculator
     </header>
 
-    <div class="tabs">
-    <button class="tab-button" onclick="showTab('future', event)">Future Calculator</button>
-    <button class="tab-button active" onclick="showTab('spot', event)">Spot Calculator</button>
-
-
-    </div>
+   <div class="tabs">
+    <button class="tab-button" onclick="showTab('spot', event)">Spot Calculator</button>
+    <button class="tab-button active" onclick="showTab('future', event)">Future Calculator</button>
+</div>
 
     <div class="tab-content">
     <div id="future" class="content active calculator"> 
@@ -252,21 +261,21 @@
             }
         }
 
-        function showTab(tabName, event) {
-            var i, content, buttons;
+      function showTab(tabName, event) {
+        var i, content, buttons;
 
-            content = document.getElementsByClassName("content");
-            for (i = 0; i < content.length; i++) {
-                content[i].style.display = "none";
-            }
+        content = document.getElementsByClassName("content");
+        for (i = 0; i < content.length; i++) {
+            content[i].style.display = "none";
+        }
 
-            buttons = document.getElementsByClassName("tab-button");
-            for (i = 0; i < buttons.length; i++) {
-                buttons[i].className = buttons[i].className.replace(" active", "");
-            }
+        buttons = document.getElementsByClassName("tab-button");
+        for (i = 0; i < buttons.length; i++) {
+            buttons[i].className = buttons[i].className.replace(" active", "");
+        }
 
-            document.getElementById(tabName).style.display = "block";
-            event.currentTarget.className += " active";
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.className += " active";
         }
 
        function calculateLeverageProfitLoss() {
