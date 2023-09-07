@@ -23,7 +23,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px 50px;
+            padding: 20px 30px;
             border-radius: 12px;
             max-width: 450px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
@@ -40,7 +40,6 @@
             color: #FFFFFF;
             font-weight: bold;
             width: 100%;
-            margin-bottom: 10px;
         }
         select, input[type="number"] {
             width: 100%;
@@ -72,12 +71,28 @@
             color: #888;
             font-weight: bold;
         }
+        button:focus, input:focus, select:focus {
+            outline: 2px solid #EE7E19; /* 예시 색상 */
+        }
         .result {
             color: #FFFFFF;
             font-size: 22px;
             font-weight: bold;
             margin-top: 5px;
             margin-bottom: 5px;
+        }
+        
+        @media (min-width: 481px) and (max-width: 768px) {
+        .calculator {
+            padding: 30px 40px;
+            }
+        }
+
+        /* 데스크톱 장치 */
+        @media (min-width: 769px) {
+        .calculator {
+            padding: 40px 50px;
+            }
         }
     </style>
 </head>
