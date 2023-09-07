@@ -17,6 +17,16 @@
             margin-bottom: 30px;
             font-weight: bold;
         }
+        #languageSelect {
+            width: 60px; /* 너비를 줄입니다. */
+            overflow: hidden; /* 내용이 넘칠 경우 숨깁니다. */
+            text-overflow: ellipsis; /* 내용이 넘칠 경우 ...로 표시합니다. */
+            white-space: nowrap; /* 텍스트를 한 줄로 표시합니다. */
+            background-color: #242424; /* 배경색을 맞춰줍니다. */
+            color: #FFFFFF; /* 글자색을 맞춰줍니다. */
+            border: 1px solid #EE7E19; /* 테두리 색상을 맞춰줍니다. */
+            border-radius: 8px; /* 둥근 모서리를 추가합니다. */
+        }
         .calculator {
             background-color: #000000;
             display: flex;
@@ -133,18 +143,19 @@
     </header>
 
     
-    <div style="text-align: right; padding-right: 50px;">
+     <div style="text-align: right; padding-right: 50px; margin-bottom: 20px;">
         <select id="languageSelect" onchange="changeLanguage()">
-            <option value="en">English</option>
-            <option value="kr">한국어</option>
+            <option value="en">EN</option>
+            <option value="kr">KR</option>
         </select>
     </div>
+
 
 
    <div class="tabs">
     <button class="tab-button" onclick="showTab('spot', event)">Spot Calculator</button>
     <button class="tab-button active" onclick="showTab('future', event)">Future Calculator</button>
-</div>
+    </div>
 
     <div class="tab-content">
     <div id="future" class="content active calculator"> 
