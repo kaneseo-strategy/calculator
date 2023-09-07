@@ -156,6 +156,25 @@
                 alert('Sharing not supported on this browser.');
             }
         }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedResult = urlParams.get('result');
+            if (sharedResult) {
+                document.getElementById('result').innerText = sharedResult;
+
+                const profitLossValue = parseFloat(sharedResult.split('$')[1]);
+                const resultElement = document.getElementById('result');
+        
+                if (profitLossValue < 0) {
+                    resultElement.style.color = 'blue';
+                } else if (profitLossValue > 0) {
+                    resultElement.style.color = 'red';
+                } else {
+                    resultElement.style.color = '#FFFFFF';
+                }
+            }
+        };
     </script>
 </body>
 </html>
