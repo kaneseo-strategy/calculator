@@ -122,8 +122,9 @@
     </header>
 
     <div class="tabs">
-    <button class="tab-button active" onclick="showTab('future', event)">Future Calculator</button>
-    <button class="tab-button" onclick="showTab('spot', event)">Spot Calculator</button>
+    <button class="tab-button" onclick="showTab('future', event)">Future Calculator</button>
+    <button class="tab-button active" onclick="showTab('spot', event)">Spot Calculator</button>
+
 
     </div>
 
@@ -323,6 +324,8 @@
                     resultElement.style.color = '#FFFFFF';
                 }
             }
+               // 기본으로 Spot Calculator를 활성화합니다.
+                showTab('spot');
         };
     </script>
 </body>
