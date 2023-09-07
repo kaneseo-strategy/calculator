@@ -113,15 +113,26 @@
             const buyPrice = parseFloat(document.getElementById('buyPrice').value);
             const sellPrice = parseFloat(document.getElementById('sellPrice').value);
             const investmentAmount = parseFloat(document.getElementById('investmentAmount').value);
-            const buyingFee = parseFloat(document.getElementById('buyingFee').value) / 100;
-            const sellingFee = parseFloat(document.getElementById('sellingFee').value) / 100;
+    
+            let buyingFee = parseFloat(document.getElementById('buyingFee').value);
+            if (isNaN(buyingFee)) {
+                buyingFee = parseFloat(document.getElementById('buyingFeeSelect').value);
+            }
+    
+            let sellingFee = parseFloat(document.getElementById('sellingFee').value);
+            if (isNaN(sellingFee)) {
+                sellingFee = parseFloat(document.getElementById('sellingFeeSelect').value);
+            }
+    
+                buyingFee = buyingFee / 100;
+                sellingFee = sellingFee / 100;
 
             const totalBuyingFee = investmentAmount * buyingFee;
             const profitLoss = (investmentAmount / buyPrice) * (sellPrice - buyPrice) - totalBuyingFee - (investmentAmount / buyPrice) * sellPrice * sellingFee;
 
             const resultElement = document.getElementById('result');
-            resultElement.innerText = `Profit/Loss: $${profitLoss.toFixed(2)}`;
-            
+                resultElement.innerText = `Profit/Loss: $${profitLoss.toFixed(2)}`;
+    
             if (profitLoss < 0) {
                 resultElement.style.color = 'blue';
             } else if (profitLoss > 0) {
@@ -130,7 +141,7 @@
                 resultElement.style.color = '#FFFFFF';
             }
         }
-        
+       
 
         function updateInputValue(inputId, value) {
             const inputElement = document.getElementById(inputId);
