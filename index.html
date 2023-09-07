@@ -128,12 +128,22 @@
 
     <div class="tab-content">
     <div id="leverage" class="content active">
-        <!-- Leverage Calculator 내용 -->
-    </div>
-    <div id="future" class="content">
-        <!-- Future Calculator 내용 -->
-    </div>
-    </div>
+    <h2>Leverage Calculator</h2>
+    <label for="leverageAmount">Leverage (e.g., 10 for 10x):</label>
+    <input type="number" id="leverageAmount" placeholder="Enter leverage">
+
+    <label for="investmentLeverage">Investment Amount ($):</label>
+    <input type="number" id="investmentLeverage" placeholder="Enter investment amount">
+
+    <label for="entryPrice">Entry Price ($):</label>
+    <input type="number" id="entryPrice" placeholder="Enter entry price">
+
+    <label for="exitPrice">Exit Price ($):</label>
+    <input type="number" id="exitPrice" placeholder="Enter exit price">
+
+    <button onclick="calculateLeverageProfitLoss()">Calculate</button>
+    <p id="leverageResult" class="result"></p>
+</div>
 
     
     <div class="calculator">
@@ -248,8 +258,28 @@
 
             document.getElementById(tabName).style.display = "block";
             event.currentTarget.className += " active";
-        }  
+        }
 
+        function calculateLeverageProfitLoss() {
+            const leverage = parseFloat(document.getElementById('leverageAmount').value);
+            const investment = parseFloat(document.getElementById('investmentLeverage').value);
+            const entryPrice = parseFloat(document.getElementById('entryPrice').value);
+            const exitPrice = parseFloat(document.getElementById('exitPrice').value);
+
+            const profitLoss = (exitPrice - entryPrice) * leverage * investment;
+
+            const resultElement = document.getElementById('leverageResult');
+            resultElement.innerText = `Profit/Loss: $${profitLoss.toFixed(2)}`;
+
+            if (profitLoss < 0) {
+                resultElement.style.color = 'blue';
+            } else if (profitLoss > 0) {
+                resultElement.style.color = 'red';
+            } else {
+                resultElement.style.color = '#FFFFFF';
+            }
+        }
+    
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
