@@ -139,8 +139,8 @@
     <label for="leverageAmount">Leverage (e.g., 10 for 10x):</label>
     <input type="number" id="leverageAmount" placeholder="Enter leverage">
 
-    <label for="investmentLeverage">Investment Amount ($):</label>
-    <input type="number" id="investmentLeverage" placeholder="Enter investment amount">
+    <label for="investmentLeverage">Coin Quantity:</label>
+    <input type="number" id="investmentLeverage" placeholder="Enter coin quantity">
 
     <label for="entryPrice">Entry Price ($):</label>
     <input type="number" id="entryPrice" placeholder="Enter entry price">
@@ -294,11 +294,11 @@
             resultElementPercent.innerText = `ROE (%): ${profitLossPercent.toFixed(2)}`;
         
             if (profitLossDollar < 0) {
+            resultElementDollar.style.color = 'blue';
+            resultElementPercent.style.color = 'blue';
+            } else if (profitLossDollar > 0) {
                 resultElementDollar.style.color = 'red';
                 resultElementPercent.style.color = 'red';
-            } else if (profitLossDollar > 0) {
-                resultElementDollar.style.color = 'blue';
-                resultElementPercent.style.color = 'blue';
             } else {
                 resultElementDollar.style.color = '#FFFFFF';
                 resultElementPercent.style.color = '#FFFFFF';
