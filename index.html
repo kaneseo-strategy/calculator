@@ -16,18 +16,6 @@
             font-size: 34px;
             margin-bottom: 30px;
             font-weight: bold;
-            position: relative;
-        }
-        .language-selector {
-            position: absolute;
-            top: 0;
-            right: 0;
-            font-size: 14px;
-            background-color: #242424;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
         }
         .calculator {
             background-color: #000000;
@@ -106,25 +94,6 @@
             padding: 40px 50px;
             }
         }
-        .results-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .results {
-            background-color: #000000;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            width: 40%;
-        }
-
-        .results p {
-            margin-bottom: 10px;
-        }
-        
         .tabs {
             display: flex;
             justify-content: center;
@@ -161,12 +130,15 @@
 <body>
     <header>
         Crypto PNL Calculator
+    </header>
+
+    
+    <div style="text-align: right; padding-right: 50px;">
         <select id="languageSelect" onchange="changeLanguage()">
             <option value="en">English</option>
             <option value="kr">한국어</option>
         </select>
-    </header>
-
+    </div>
 
 
    <div class="tabs">
@@ -199,15 +171,6 @@
     <p id="leverageResultPercent" class="result"></p>
 </div>
 
-    <div class="results-container">
-                <button onclick="calculateLeverageProfitLoss()">계산하기</button>
-                <div class="results">
-                    <p id="initialMargin" class="result"></p>
-                    <p id="leverageResultDollar" class="result"></p>
-                    <p id="leverageResultPercent" class="result"></p>
-                </div>
-            </div>
-        </div>
 
     
      <div id="spot" class="content calculator">
@@ -307,11 +270,7 @@
             }
         }
 
-         function changeLanguage(lang) {
-            // 여기에 언어 변경 로직을 추가합니다.
-        }
-
-        function showTab(tabName, event = null) {
+      function showTab(tabName, event) {
         var i, content, buttons;
 
         content = document.getElementsByClassName("content");
@@ -334,8 +293,6 @@
             const investment = parseFloat(document.getElementById('investmentLeverage').value);
             const entryPrice = parseFloat(document.getElementById('entryPrice').value);
             const exitPrice = parseFloat(document.getElementById('exitPrice').value);
-            const profitLossPercent = (profitLossDollar / initialMargin) * 100;
-
         
             let profitLossDollar;
             if (positionType === "long") {
@@ -343,20 +300,20 @@
             } else { // short
                 profitLossDollar = (entryPrice - exitPrice) * investment;
             }
-
-            const initialMargin = investment * entryPrice * (1 / leverage);
-            
+        
+            const IMR = 1 / leverage;
+            const initialMargin = investment * entryPrice * IMR;
+            const profitLossPercent = (profitLossDollar / initialMargin) * 100;
+        
             const resultElementDollar = document.getElementById('leverageResultDollar');
             const resultElementPercent = document.getElementById('leverageResultPercent');
-            const initialMarginElement = document.getElementById('initialMargin');
-            
-            initialMarginElement.innerText = `Initial Margin: ${initialMargin.toFixed(2)} USDT`;
-            resultElementDollar.innerText = `PNL: ${profitLossDollar.toFixed(2)} USDT`;
-            resultElementPercent.innerText = `ROE %: ${profitLossPercent.toFixed(2)}%`;
+        
+            resultElementDollar.innerText = `Profit/Loss ($): ${profitLossDollar.toFixed(2)}`;
+            resultElementPercent.innerText = `ROE (%): ${profitLossPercent.toFixed(2)}`;
         
             if (profitLossDollar < 0) {
-                resultElementDollar.style.color = 'blue';
-                resultElementPercent.style.color = 'blue';
+            resultElementDollar.style.color = 'blue';
+            resultElementPercent.style.color = 'blue';
             } else if (profitLossDollar > 0) {
                 resultElementDollar.style.color = 'red';
                 resultElementPercent.style.color = 'red';
@@ -391,6 +348,8 @@
                 header: "크립토 PNL 계산기",
                 spotTab: "스팟 계산기",
                 futureTab: "퓨처 계산기",
+                spotTab: "현물 계산기",
+                futureTab: "선물 계산기",
                 positionType: "포지션 유형:",
                 long: "롱",
                 short: "숏",
