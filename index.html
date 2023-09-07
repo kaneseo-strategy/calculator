@@ -128,7 +128,7 @@
     </div>
 
     <div class="tab-content">
-    <div id="leverage" class="content active"> 
+    <div id="future" class="content active calculator"> 
     <label for="positionType">Position Type:</label>
     <select id="positionType">
         <option value="long">Long</option>
@@ -154,7 +154,7 @@
 
 
     
-    <div class="calculator">
+     <div id="spot" class="content calculator">
         <label for="buyPrice">Buy Price ($)</label>
         <input type="number" id="buyPrice" placeholder="Enter buy price">
 
@@ -274,21 +274,23 @@
             const investment = parseFloat(document.getElementById('investmentLeverage').value);
             const entryPrice = parseFloat(document.getElementById('entryPrice').value);
             const exitPrice = parseFloat(document.getElementById('exitPrice').value);
-    
+        
             let profitLossDollar;
             if (positionType === "long") {
                 profitLossDollar = (exitPrice - entryPrice) * investment;
             } else { // short
                 profitLossDollar = (entryPrice - exitPrice) * investment;
             }
-    
-            const profitLossPercent = (profitLossDollar / investment) * 100 * leverage;
-    
+        
+            const IMR = 1 / leverage;
+            const initialMargin = investment * entryPrice * IMR;
+            const profitLossPercent = (profitLossDollar / initialMargin) * 100;
+        
             const resultElementDollar = document.getElementById('leverageResultDollar');
             const resultElementPercent = document.getElementById('leverageResultPercent');
-            
+        
             resultElementDollar.innerText = `Profit/Loss ($): ${profitLossDollar.toFixed(2)}`;
-            resultElementPercent.innerText = `Profit/Loss (%): ${profitLossPercent.toFixed(2)}`;
+            resultElementPercent.innerText = `ROE (%): ${profitLossPercent.toFixed(2)}`;
         
             if (profitLossDollar < 0) {
                 resultElementDollar.style.color = 'red';
@@ -302,7 +304,7 @@
             }
         }
 
-    
+
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
